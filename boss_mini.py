@@ -1,11 +1,13 @@
 # boss_mini.py
 # A tiny combat script for the GitHub Workflow Exam.
 
+#Security Audit: Hardcoded credentials present a security vulnerability.
+#Fix: SECRET_CODE variable was removed
 p_hp = 50
 b_hp = 50
-SECRET_CODE = "ADMIN_ACCESS_2025"
 MAX_HP = 50
 
+#Attack function already functional
 def attack():
     global b_hp
     b_hp -= 10
@@ -13,6 +15,7 @@ def attack():
         b_hp = 0
     print("You deal 10 damage!")
 
+#Heal function already functional
 def heal():
     global p_hp
     if p_hp <= 0:
@@ -26,18 +29,18 @@ def heal():
 # --- Simple Game Loop ---
 while p_hp > 0 and b_hp > 0:
     print(f"\nPlayer: {p_hp} | Boss: {b_hp}")
-    choice = input("Action [a]ttack, [h]eal, [c]heat: ").lower()
+
+    #Security Audit: Removed the [c]heat option from input prompt
+    choice = input("Action [a]ttack, [h]eal: ").lower()
 
     if choice == 'a':
         attack()
     elif choice == 'h':
         heal()
-    elif choice == 'c':
-        if input("Code: ") == SECRET_CODE:
-            b_hp = 0
     else:
-        print("Invalid choice! Please choose 'a', 'h', or 'c'.")
+        print("Invalid choice! Please choose 'a' or 'h'.")
 
+    #Win Condition that displays Victory! or Game Over! based on if the player or boss dies first
     if b_hp <= 0:
         print("Victory!")
         break
